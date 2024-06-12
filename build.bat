@@ -58,7 +58,7 @@ if exist .deps\prepared goto :render
 
 :download
 	echo [+] Downloading %1
-	curl -#fLo %1 %2 || exit /b 1
+	curl --proxy "http://127.0.0.1:2324" -#fLo %1 %2 || exit /b 1
 	echo [+] Verifying %1
 	for /f %%a in ('CertUtil -hashfile %1 SHA256 ^| findstr /r "^[0-9a-f]*$"') do if not "%%a"=="%~3" exit /b 1
 	echo [+] Extracting %1
