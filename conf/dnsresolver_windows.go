@@ -17,6 +17,11 @@ import (
 	"golang.zx2c4.com/wireguard/windows/services"
 )
 
+func resolveIpvp(name string) (resolvedIPString string, resolvedPort uint16, err error) {
+	log.Printf("开始解析ip4p地址:%s", name)
+	return
+}
+
 func resolveHostname(name string) (resolvedIPString string, err error) {
 	maxTries := 10
 	if services.StartedAtBoot() {
@@ -88,9 +93,15 @@ func (config *Config) ResolveEndpoints() error {
 			continue
 		}
 		var err error
+		configPort := config.Peers[i].Endpoint.Port
 		config.Peers[i].Endpoint.Host, err = resolveHostname(config.Peers[i].Endpoint.Host)
 		if err != nil {
 			return err
+		}
+		/* 解析ip4p */
+		if configPort == 0 {
+			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port, err = resolveIpvp(config.Peers[i].Endpoint.Host)
+			continue
 		}
 	}
 	return nil
