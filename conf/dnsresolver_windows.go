@@ -8,6 +8,7 @@ package conf
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/netip"
 	"strconv"
 	"strings"
@@ -115,9 +116,40 @@ func (config *Config) ResolveEndpoints() error {
 	return nil
 }
 
-func resolveSrv(name string) (resolvedIPString string, resolvedPort uint16) {
+func resolveSrv(name string) (string, uint16) {
 	log.Printf("开始解析Srv地址:%s", name)
-	return "", 0
+	var resolvedHostName string
+	var resolvedIPString string
+	var resolvedPort uint16
+	// 指定要解析的 SRV 记录
+	hostSplit := strings.Split(name, ".")
+	splitIndex := len(hostSplit)
+	service := hostSplit[0][1:len(hostSplit[0])]
+	proto := hostSplit[1][1:len(hostSplit[1])]
+	hostArr := hostSplit[2:splitIndex]
+	var hostname string
+	for i := 0; i < len(hostArr); i++ {
+		hostname += hostArr[i] + "."
+	}
+	hostname = hostname[0 : len(hostname)-1]
+	log.Printf("域名分割查询参数:service:%v proto:%v hostname:%v", service, proto, hostname)
+	_, srvs, err := net.LookupSRV(service, proto, hostname)
+	if err != nil {
+		log.Printf("解析Srv地址失败,Error:%v", err)
+		return "0.0.0.0", 0
+	}
+	// 输出解析结果
+	for _, srv := range srvs {
+		resolvedHostName = srv.Target
+		resolvedPort = srv.Port
+	}
+	iprecords, _ := net.LookupIP(resolvedHostName)
+	for _, ipbyte := range iprecords {
+		resolvedIPString = ipbyte.To16().String()
+		continue
+	}
+	log.Printf("解析Srv地址结果:%s %d", resolvedIPString, resolvedPort)
+	return resolvedIPString, resolvedPort
 }
 
 func resolveIp4p(name string) (resolvedIPString string, resolvedPort uint16) {
