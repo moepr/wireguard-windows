@@ -20,39 +20,6 @@ import (
 	"golang.zx2c4.com/wireguard/windows/services"
 )
 
-// 16进制字符串转int
-func stringTohex(hexString string) int64 {
-	// 将HEX字符串转换为16进制值
-	hexValue, err := strconv.ParseInt(hexString, 16, 64)
-	if err != nil {
-		fmt.Println("转换错误:", err)
-		return 0
-	}
-	return hexValue
-}
-
-func resolveIp4p(ip4p string) (string, uint16) {
-	//var ip4p string = "2001::4443:7416:cf3"
-	arr := strings.Split(ip4p, ":")
-	port := stringTohex(arr[2])
-	ipab := stringTohex(arr[3])
-	ipcd := stringTohex(arr[4])
-	ipa := ipab >> 8
-	ipb := ipab & 0xff
-	ipc := ipcd >> 8
-	ipd := ipcd & 0xff
-	ip := strconv.FormatInt(ipa, 10) + "." + strconv.FormatInt(ipb, 10) + "." + strconv.FormatInt(ipc, 10) + "." + strconv.FormatInt(ipd, 10)
-	log.Printf("端口:" + strconv.FormatInt(port, 10))
-	log.Printf("ip地址:" + ip)
-	return ip, uint16(port)
-}
-
-func resolveIpvp(name string) (resolvedIPString string, resolvedPort uint16) {
-	log.Printf("开始解析ip4p地址:%s", name)
-	ip, port := resolveIp4p(name)
-	return ip, port
-}
-
 func resolveHostname(name string) (resolvedIPString string, err error) {
 	maxTries := 10
 	if services.StartedAtBoot() {
@@ -125,15 +92,57 @@ func (config *Config) ResolveEndpoints() error {
 		}
 		var err error
 		configPort := config.Peers[i].Endpoint.Port
-		config.Peers[i].Endpoint.Host, err = resolveHostname(config.Peers[i].Endpoint.Host)
-		if err != nil {
-			return err
-		}
-		/* 解析ip4p */
-		if configPort == 0 {
-			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveIpvp(config.Peers[i].Endpoint.Host)
+		//host域名
+		configHostName := config.Peers[i].Endpoint.Host
+		/* 解析srv */
+		if configPort == 0 && (strings.Contains(configHostName, "._tcp.") || strings.Contains(configHostName, "._udp.")) {
+			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveSrv(configHostName)
 			continue
+		} else {
+			config.Peers[i].Endpoint.Host, err = resolveHostname(configHostName)
+			if err != nil {
+				return err
+			}
+			//host解析ip
+			configHostIp := config.Peers[i].Endpoint.Host
+			/* 解析ip4p */
+			if configPort == 0 && strings.Contains(configHostIp, ":") {
+				config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveIp4p(configHostIp)
+				continue
+			}
 		}
 	}
 	return nil
+}
+
+func resolveSrv(name string) (resolvedIPString string, resolvedPort uint16) {
+	log.Printf("开始解析Srv地址:%s", name)
+	return "", 0
+}
+
+func resolveIp4p(name string) (resolvedIPString string, resolvedPort uint16) {
+	log.Printf("开始解析ip4p地址:%s", name)
+	arr := strings.Split(name, ":")
+	port := stringTohex(arr[2])
+	ipab := stringTohex(arr[3])
+	ipcd := stringTohex(arr[4])
+	ipa := ipab >> 8
+	ipb := ipab & 0xff
+	ipc := ipcd >> 8
+	ipd := ipcd & 0xff
+	ip := strconv.FormatInt(ipa, 10) + "." + strconv.FormatInt(ipb, 10) + "." + strconv.FormatInt(ipc, 10) + "." + strconv.FormatInt(ipd, 10)
+	log.Printf("端口:" + strconv.FormatInt(port, 10))
+	log.Printf("ip地址:" + ip)
+	return ip, uint16(port)
+}
+
+// 16进制字符串转int
+func stringTohex(hexString string) int64 {
+	// 将HEX字符串转换为16进制值
+	hexValue, err := strconv.ParseInt(hexString, 16, 64)
+	if err != nil {
+		fmt.Println("转换错误:", err)
+		return 0
+	}
+	return hexValue
 }
