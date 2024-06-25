@@ -7,7 +7,6 @@ package conf
 
 import (
 	"encoding/base64"
-	"log"
 	"net/netip"
 	"os/exec"
 	"strconv"
@@ -383,15 +382,12 @@ func FromDriverConfiguration(interfaze *driver.Interface, existingConfig *Config
 			nanoseconds := (p.LastHandshake - 116444736000000000) * 100
 			duration := time.Duration(nanoseconds) * time.Nanosecond
 			seconds := duration.Seconds()
-			log.Printf("====上次握手时间秒LastHandshakeTime:%v", seconds)
+			//log.Printf("====上次握手时间秒LastHandshakeTime:%v", seconds)
 			if seconds > 300 {
 				serviceName := "WireGuardTunnel$" + conf.Name
-				log.Printf("握手间隔大于300秒,开始重启服务:%v", serviceName)
-				cmd := exec.Command("sc", "stop", serviceName)
-				err := cmd.Run()
-				if err != nil {
-					log.Println("重启服务失败:", err)
-				}
+				//log.Printf("握手间隔大于300秒,开始重启服务:%v", serviceName)
+				exec.Command("sudo", "net", "stop", serviceName).Run()
+				exec.Command("sudo", "net", "start", serviceName).Run()
 			}
 			peer.LastHandshakeTime = HandshakeTime(nanoseconds)
 		}
