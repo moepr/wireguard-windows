@@ -21,7 +21,7 @@ if exist .deps\prepared goto :build
 	rmdir /s /q .deps 2> NUL
 	mkdir .deps || goto :error
 	cd .deps || goto :error
-	call :download wix-binaries.zip https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314-binaries.zip 34dcbba9952902bfb710161bd45ee2e721ffa878db99f738285a21c9b09c6edb || goto :error
+	call :download wix-binaries.zip https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314-binaries.zip 6ac824e1642d6f7277d0ed7ea09411a508f6116ba6fae0aa5f2c7daa2ff43d31 || goto :error
 	echo [+] Extracting wix-binaries.zip
 	mkdir wix\bin || goto :error
 	tar -xf wix-binaries.zip -C wix\bin || goto :error
@@ -40,10 +40,10 @@ if exist .deps\prepared goto :build
 	call :msi x86 i686 x86 || goto :error
 	call :msi amd64 x86_64 x64 || goto :error
 	call :msi arm64 aarch64 arm64 || goto :error
-	if "%SigningCertificate%"=="" goto :success
+	if "%SigningProvider%"=="" goto :success
 	if "%TimestampServer%"=="" goto :success
 	echo [+] Signing
-	signtool sign /sha1 "%SigningCertificate%" /fd sha256 /tr "%TimestampServer%" /td sha256 /d "WireGuard Setup" "dist\wireguard-*-%WIREGUARD_VERSION%.msi" || goto :error
+	signtool sign %SigningProvider% /fd sha256 /tr "%TimestampServer%" /td sha256 /d "WireGuard Setup" "dist\wireguard-*-%WIREGUARD_VERSION%.msi" || goto :error
 
 :success
 	echo [+] Success.
@@ -51,9 +51,9 @@ if exist .deps\prepared goto :build
 
 :download
 	echo [+] Downloading %1
-	curl --proxy "http://127.0.0.1:2324" -#fLo %1 %2 || exit /b 1
-	::echo [+] Verifying %1
-	::for /f %%a in ('CertUtil -hashfile %1 SHA256 ^| findstr /r "^[0-9a-f]*$"') do if not "%%a"=="%~3" exit /b 1
+	curl -#fLo %1 %2 || exit /b 1
+	echo [+] Verifying %1
+	for /f %%a in ('CertUtil -hashfile %1 SHA256 ^| findstr /r "^[0-9a-f]*$"') do if not "%%a"=="%~3" exit /b 1
 	goto :eof
 
 :msi
@@ -61,10 +61,10 @@ if exist .deps\prepared goto :build
 	if not exist "%~1" mkdir "%~1"
 	echo [+] Compiling %1
 	%CC% %CFLAGS% %LDFLAGS% -o "%~1\customactions.dll" customactions.c %LDLIBS% || exit /b 1
-	if "%SigningCertificate%"=="" goto :skipsign
+	if "%SigningProvider%"=="" goto :skipsign
 	if "%TimestampServer%"=="" goto :skipsign
 	echo [+] Signing %1
-	signtool sign /sha1 "%SigningCertificate%" /fd sha256 /tr "%TimestampServer%" /td sha256 /d "WireGuard Setup Custom Actions" "%~1\customactions.dll" || exit /b 1
+	signtool sign %SigningProvider% /fd sha256 /tr "%TimestampServer%" /td sha256 /d "WireGuard Setup Custom Actions" "%~1\customactions.dll" || exit /b 1
 :skipsign
 	"%WIX%bin\candle" %WIX_CANDLE_FLAGS% -dWIREGUARD_PLATFORM="%~1" -out "%~1\wireguard.wixobj" -arch %3 wireguard.wxs || exit /b %errorlevel%
 	echo [+] Linking %1

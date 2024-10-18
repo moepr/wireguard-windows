@@ -8,10 +8,8 @@ package conf
 import (
 	"encoding/base64"
 	"net/netip"
-	"os/exec"
 	"strconv"
 	"strings"
-	"time"
 
 	"golang.org/x/sys/windows"
 	"golang.org/x/text/encoding/unicode"
@@ -380,15 +378,6 @@ func FromDriverConfiguration(interfaze *driver.Interface, existingConfig *Config
 		peer.RxBytes = Bytes(p.RxBytes)
 		if p.LastHandshake != 0 {
 			nanoseconds := (p.LastHandshake - 116444736000000000) * 100
-			duration := time.Duration(nanoseconds) * time.Nanosecond
-			seconds := duration.Seconds()
-			//log.Printf("====上次握手时间秒LastHandshakeTime:%v", seconds)
-			if seconds > 300 {
-				serviceName := "WireGuardTunnel$" + conf.Name
-				//log.Printf("握手间隔大于300秒,开始重启服务:%v", serviceName)
-				exec.Command("sudo", "net", "stop", serviceName).Run()
-				exec.Command("sudo", "net", "start", serviceName).Run()
-			}
 			peer.LastHandshakeTime = HandshakeTime(nanoseconds)
 		}
 		var a *driver.AllowedIP
