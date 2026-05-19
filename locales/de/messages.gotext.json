@@ -1286,7 +1286,7 @@
         {
             "id": "An update to WireGuard is now available. You are advised to update as soon as possible.",
             "message": "An update to WireGuard is now available. You are advised to update as soon as possible.",
-            "translation": "Eine Aktualisierung für WireGuard ist jetzt verfügbar. Es wird empfohlen diese schnellstmöglich durchzuführen.",
+            "translation": "Eine Aktualisierung für WireGuard ist jetzt verfügbar. Es wird empfohlen, diese schnellstmöglich durchzuführen.",
             "translatorComment": "Copied from source."
         },
         {
@@ -1720,7 +1720,7 @@
         {
             "id": "An update to WireGuard is available. It is highly advisable to update without delay.",
             "message": "An update to WireGuard is available. It is highly advisable to update without delay.",
-            "translation": "Eine Aktualisierung für WireGuard ist verfügbar. Es ist höchst empfehlenswert diese sofort durchzuführen.",
+            "translation": "Eine Aktualisierung für WireGuard ist verfügbar. Es ist höchst empfehlenswert, diese sofort durchzuführen.",
             "translatorComment": "Copied from source."
         },
         {

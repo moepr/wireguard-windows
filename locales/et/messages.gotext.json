@@ -62,7 +62,7 @@
         {
             "id": "You must use the native version of WireGuard on this computer.",
             "message": "You must use the native version of WireGuard on this computer.",
-            "translation": "Peate kasutama antud arvutiga sobivat WireGuard'i versiooni.",
+            "translation": "You must use the native version of WireGuard on this computer.",
             "translatorComment": "Copied from source."
         },
         {
@@ -84,7 +84,7 @@
         {
             "id": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
             "message": "WireGuard may only be used by users who are a member of the Builtin {AdminGroupName} group.",
-            "translation": "WireGuard'i võivad kasutada ainult kasutajad, kes on sisseehitatud {AdminGroupName} grupi liikmed.",
+            "translation": "{AdminGroupName}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {

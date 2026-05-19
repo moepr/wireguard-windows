@@ -964,7 +964,7 @@
         {
             "id": "Unable to list existing tunnels",
             "message": "Unable to list existing tunnels",
-            "translation": "Nie można wylistować istniejących tuneli",
+            "translation": "Nie można wyświetlić listy istniejących tuneli",
             "translatorComment": "Copied from source."
         },
         {
@@ -1080,7 +1080,7 @@
         {
             "id": "Log message",
             "message": "Log message",
-            "translation": "Wiadomości dziennika",
+            "translation": "Komunikat dziennika",
             "translatorComment": "Copied from source."
         },
         {
@@ -1194,7 +1194,7 @@
         {
             "id": "E&xit",
             "message": "E&xit",
-            "translation": "W&yjście",
+            "translation": "W&yjdź",
             "translatorComment": "Copied from source."
         },
         {
@@ -1206,7 +1206,7 @@
         {
             "id": "WireGuard Activated",
             "message": "WireGuard Activated",
-            "translation": "WireGuard Aktywny",
+            "translation": "WireGuard aktywowany",
             "translatorComment": "Copied from source."
         },
         {

@@ -40,7 +40,7 @@
         {
             "id": "Command Line Options",
             "message": "Command Line Options",
-            "translation": "커맨드 라인 옵션",
+            "translation": "명령줄 옵션",
             "translatorComment": "Copied from source."
         },
         {
@@ -477,7 +477,7 @@
         {
             "id": "Line must occur in a section",
             "message": "Line must occur in a section",
-            "translation": "행은 섹션에 있어야 함",
+            "translation": "줄은 섹션 내에 위치해야 함",
             "translatorComment": "Copied from source."
         },
         {
@@ -495,13 +495,13 @@
         {
             "id": "Invalid key for [Interface] section",
             "message": "Invalid key for [Interface] section",
-            "translation": "[Interface] 구간에 대한 잘못된 키",
+            "translation": "[Interface] 섹션의 잘못된 키",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Invalid key for [Peer] section",
             "message": "Invalid key for [Peer] section",
-            "translation": "[Peer] 구간에 대한 잘못된 키",
+            "translation": "[Peer] 섹션의 잘못된 키",
             "translatorComment": "Copied from source."
         },
         {
@@ -513,7 +513,7 @@
         {
             "id": "[none specified]",
             "message": "[none specified]",
-            "translation": "[특정되지 않음]",
+            "translation": "[지정되지 않음]",
             "translatorComment": "Copied from source."
         },
         {
@@ -561,7 +561,7 @@
         {
             "id": "About WireGuard",
             "message": "About WireGuard",
-            "translation": "WireGuard에 관하여",
+            "translation": "WireGuard 정보",
             "translatorComment": "Copied from source."
         },
         {
@@ -635,7 +635,7 @@
         {
             "id": "♥ &Donate!",
             "message": "♥ &Donate!",
-            "translation": "♥ &기부하기!",
+            "translation": "♥ 후원하기(&D)!",
             "translatorComment": "Copied from source."
         },
         {
@@ -647,13 +647,13 @@
         {
             "id": "&Deactivate",
             "message": "&Deactivate",
-            "translation": "&비활성화하기",
+            "translation": "비활성화(&D)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Activate",
             "message": "&Activate",
-            "translation": "&활성화하기",
+            "translation": "활성화(&A)",
             "translatorComment": "Copied from source."
         },
         {
@@ -719,7 +719,7 @@
         {
             "id": "Latest handshake:",
             "message": "Latest handshake:",
-            "translation": "마지막 정보교환:",
+            "translation": "최근 핸드셰이크:",
             "translatorComment": "Copied from source."
         },
         {
@@ -843,25 +843,25 @@
         {
             "id": "&Name:",
             "message": "&Name:",
-            "translation": "&이름:",
+            "translation": "이름(&N):",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Public key:",
             "message": "&Public key:",
-            "translation": "&공개 키:",
+            "translation": "공개 키(&P):",
             "translatorComment": "Copied from source."
         },
         {
             "id": "(unknown)",
             "message": "(unknown)",
-            "translation": "(알수없음)",
+            "translation": "(알 수 없음)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Block untunneled traffic (kill-switch)",
             "message": "&Block untunneled traffic (kill-switch)",
-            "translation": "&Block 터널 없는 교통 (킬-스위치)",
+            "translation": "터널 외부 트래픽 차단(&B) (킬스위치)",
             "translatorComment": "Copied from source."
         },
         {
@@ -873,7 +873,7 @@
         {
             "id": "&Save",
             "message": "&Save",
-            "translation": "&저장",
+            "translation": "저장(&S)",
             "translatorComment": "Copied from source."
         },
         {
@@ -885,7 +885,7 @@
         {
             "id": "&Configuration:",
             "message": "&Configuration:",
-            "translation": "&환경설정:",
+            "translation": "구성(&C):",
             "translatorComment": "Copied from source."
         },
         {
@@ -897,13 +897,13 @@
         {
             "id": "A name is required.",
             "message": "A name is required.",
-            "translation": "이름은 필수 항목 입니다.",
+            "translation": "이름은 필수 항목입니다.",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Tunnel name ‘{NewName}’ is invalid.",
             "message": "Tunnel name ‘{NewName}’ is invalid.",
-            "translation": "터널명 ‘{NewName}’ 무효입니다.",
+            "translation": "‘{NewName}’ 터널 이름이 잘못되었습니다.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -925,13 +925,13 @@
         {
             "id": "Tunnel already exists",
             "message": "Tunnel already exists",
-            "translation": "이름이 이미 있음",
+            "translation": "이미 존재하는 터널",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Another tunnel already exists with the name ‘{NewName}’.",
             "message": "Another tunnel already exists with the name ‘{NewName}’.",
-            "translation": "이름과 함께 또 다른 터널이 이미 존재합니다 ‘{NewName}’.",
+            "translation": "‘{NewName}’ 터널 이름이 이미 존재합니다.",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -947,7 +947,7 @@
         {
             "id": "Unable to create new configuration",
             "message": "Unable to create new configuration",
-            "translation": "구성을 가져올 수 없음",
+            "translation": "새 구성을 생성할 수 없음",
             "translatorComment": "Copied from source."
         },
         {
@@ -959,7 +959,7 @@
         {
             "id": "File ‘{FilePath}’ already exists.\n\nDo you want to overwrite it?",
             "message": "File ‘{FilePath}’ already exists.\n\nDo you want to overwrite it?",
-            "translation": "파일 ‘{FilePath}’ 이미 존재합니다.\n\nDo you want to overwrite it?",
+            "translation": "‘{FilePath}’ 파일이 이미 존재합니다.\n\n덮어쓰시겠습니까?",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1011,19 +1011,19 @@
         {
             "id": "&Copy",
             "message": "&Copy",
-            "translation": "&복사",
+            "translation": "복사(&C)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Select &all",
             "message": "Select &all",
-            "translation": "전체 &선택",
+            "translation": "전체 선택(&A)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Save to file…",
             "message": "&Save to file…",
-            "translation": "&파일에 저장…",
+            "translation": "파일로 저장(&S)…",
             "translatorComment": "Copied from source."
         },
         {
@@ -1053,7 +1053,7 @@
         {
             "id": "&About WireGuard…",
             "message": "&About WireGuard…",
-            "translation": "&WireGuard에 관하여…",
+            "translation": "WireGuard 정보(&A)…",
             "translatorComment": "Copied from source."
         },
         {
@@ -1137,25 +1137,25 @@
         {
             "id": "&Manage tunnels…",
             "message": "&Manage tunnels…",
-            "translation": "&터널 관리…",
+            "translation": "터널 관리(&M)…",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Import tunnel(s) from file…",
             "message": "&Import tunnel(s) from file…",
-            "translation": "&파일에서 터널(s) 불러오기…",
+            "translation": "파일에서 터널 가져오기(&I)…",
             "translatorComment": "Copied from source."
         },
         {
             "id": "E&xit",
             "message": "E&xit",
-            "translation": "종료&",
+            "translation": "종료(&X)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Tunnels",
             "message": "&Tunnels",
-            "translation": "&터널",
+            "translation": "터널(&T)",
             "translatorComment": "Copied from source."
         },
         {
@@ -1283,13 +1283,13 @@
         {
             "id": "&Edit",
             "message": "&Edit",
-            "translation": "&편집",
+            "translation": "편집(&E)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Add &empty tunnel…",
             "message": "Add &empty tunnel…",
-            "translation": "&빈 터널 추가…",
+            "translation": "빈 터널 추가(&E)…",
             "translatorComment": "Copied from source."
         },
         {
@@ -1301,37 +1301,37 @@
         {
             "id": "Remove selected tunnel(s)",
             "message": "Remove selected tunnel(s)",
-            "translation": "선택한 터널(s) 제거",
+            "translation": "선택한 터널 제거",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Export all tunnels to zip",
             "message": "Export all tunnels to zip",
-            "translation": "터널들을 Zip 파일에 내보내기",
+            "translation": "모든 터널 zip으로 내보내기",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Toggle",
             "message": "&Toggle",
-            "translation": "&토글",
+            "translation": "활성/비활성(&T)",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Export all tunnels to &zip…",
             "message": "Export all tunnels to &zip…",
-            "translation": "모든 터널을 &zip으로 내보내기…",
+            "translation": "모든 터널 zip으로 내보내기(&Z)…",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Edit &selected tunnel…",
             "message": "Edit &selected tunnel…",
-            "translation": "편집 &선택한 터널…",
+            "translation": "선택한 터널 편집(&S)…",
             "translatorComment": "Copied from source."
         },
         {
             "id": "&Remove selected tunnel(s)",
             "message": "&Remove selected tunnel(s)",
-            "translation": "&선택한 터널(s) 제거",
+            "translation": "선택한 터널 제거(&R)",
             "translatorComment": "Copied from source."
         },
         {
@@ -1407,7 +1407,7 @@
         {
             "id": "Imported tunnels",
             "message": "Imported tunnels",
-            "translation": "터널을 가져옴",
+            "translation": "터널 가져오기 완료",
             "translatorComment": "Copied from source."
         },
         {
@@ -1419,7 +1419,7 @@
                     "arg": "M",
                     "cases": {
                         "other": {
-                            "msg": "터널 {M} 가져옴"
+                            "msg": "터널 {M}개를 가져왔습니다"
                         }
                     }
                 }
@@ -1444,7 +1444,7 @@
                     "arg": "N",
                     "cases": {
                         "other": {
-                            "msg": "터널 {M} 의 {N} 가져옴"
+                            "msg": "터널 {N}개 중 {M}개를 가져왔습니다"
                         }
                     }
                 }
@@ -1483,7 +1483,7 @@
                     "arg": "TunnelCount",
                     "cases": {
                         "other": {
-                            "msg": "터널 {TunnelCount} 삭제"
+                            "msg": "터널 {TunnelCount}개 삭제"
                         }
                     }
                 }
@@ -1508,7 +1508,7 @@
                     "arg": "TunnelCount",
                     "cases": {
                         "other": {
-                            "msg": "삭제하고 싶은 게 확실해 {TunnelCount} 터널?"
+                            "msg": "터널 {TunnelCount}개를 삭제하시겠습니까?"
                         }
                     }
                 }
@@ -1527,7 +1527,7 @@
         {
             "id": "Delete tunnel ‘{TunnelName}’",
             "message": "Delete tunnel ‘{TunnelName}’",
-            "translation": "터널 삭제 ‘{TunnelName}’",
+            "translation": "‘{TunnelName}’ 터널 삭제",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1543,7 +1543,7 @@
         {
             "id": "Are you sure you would like to delete tunnel ‘{TunnelName}’?",
             "message": "Are you sure you would like to delete tunnel ‘{TunnelName}’?",
-            "translation": "터널을 삭제하고 싶은 것이 확실합니까 ‘{TunnelName}’?",
+            "translation": "‘{TunnelName}’ 터널을 삭제하시겠습니까?",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1634,19 +1634,19 @@
         {
             "id": "Import tunnel(s) from file",
             "message": "Import tunnel(s) from file",
-            "translation": "파일에서 터널(s) 불러오기",
+            "translation": "파일에서 터널 가져오기",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Configuration ZIP Files (*.zip)|*.zip",
             "message": "Configuration ZIP Files (*.zip)|*.zip",
-            "translation": "형상 ZIP 파일 (*.zip)|*.zip",
+            "translation": "구성 ZIP 파일 (*.zip)|*.zip",
             "translatorComment": "Copied from source."
         },
         {
             "id": "Export tunnels to zip",
             "message": "Export tunnels to zip",
-            "translation": "터널들을 Zip 파일에 내보내기",
+            "translation": "터널 zip으로 내보내기",
             "translatorComment": "Copied from source."
         },
         {
@@ -1668,7 +1668,7 @@
         {
             "id": "Error Exiting WireGuard",
             "message": "Error Exiting WireGuard",
-            "translation": "WireGuard 오류로 종료중",
+            "translation": "WireGuard 종료 오류",
             "translatorComment": "Copied from source."
         },
         {
@@ -1736,7 +1736,7 @@
         {
             "id": "http2: Framer {F}: failed to decode just-written frame",
             "message": "http2: Framer {F}: failed to decode just-written frame",
-            "translation": "http2: 프레이머 {F}: 방금 작성된 프레임을 디코딩하는 데 실패",
+            "translation": "http2: Framer {F}: failed to decode just-written frame",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1752,7 +1752,7 @@
         {
             "id": "http2: Framer {F}: wrote {Http2summarizeFramefr}",
             "message": "http2: Framer {F}: wrote {Http2summarizeFramefr}",
-            "translation": "http2: 프레이머 {F}: {Http2summarizeFramefr} 을(를) 작성함",
+            "translation": "http2: Framer {F}: wrote {Http2summarizeFramefr}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1776,7 +1776,7 @@
         {
             "id": "http2: Framer {Fr}: read {Http2summarizeFramef}",
             "message": "http2: Framer {Fr}: read {Http2summarizeFramef}",
-            "translation": "http2: 프레이머 {Fr}: {Http2summarizeFramef} 을(를) 읽음",
+            "translation": "http2: Framer {Fr}: read {Http2summarizeFramef}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
@@ -1800,7 +1800,7 @@
         {
             "id": "http2: decoded hpack field {HeaderField}",
             "message": "http2: decoded hpack field {HeaderField}",
-            "translation": "http2: 디코딩된 Hpack 필드 {HeaderField}",
+            "translation": "http2: decoded hpack field {HeaderField}",
             "translatorComment": "Copied from source.",
             "placeholders": [
                 {
