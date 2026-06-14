@@ -94,6 +94,7 @@ func (config *Config) ResolveEndpoints() error {
 
 		configPort := config.Peers[i].Endpoint.Port
 		configHostName := config.Peers[i].Endpoint.Host
+		config.Peers[i].Endpoint.RawHost = configHostName
 		/* 解析srv */
 		if configPort == 0 && (strings.Contains(configHostName, "._tcp.") || strings.Contains(configHostName, "._udp.")) {
 			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveSrv(configHostName)
@@ -107,6 +108,32 @@ func (config *Config) ResolveEndpoints() error {
 		if err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func (config *Config) ResolveSingleEndpoint(peerIndex int) error {
+	if peerIndex < 0 || peerIndex >= len(config.Peers) {
+		return fmt.Errorf("invalid peer index %d", peerIndex)
+	}
+	peer := &config.Peers[peerIndex]
+	rawHost := peer.Endpoint.RawHost
+	if len(rawHost) == 0 {
+		return nil
+	}
+	if strings.Contains(rawHost, "._tcp.") || strings.Contains(rawHost, "._udp.") {
+		log.Printf("重新解析SRV记录:%s", rawHost)
+		peer.Endpoint.Host, peer.Endpoint.Port = resolveSrv(rawHost)
+	} else if strings.Contains(rawHost, ".txt.") {
+		log.Printf("重新解析TXT记录:%s", rawHost)
+		peer.Endpoint.Host, peer.Endpoint.Port = resolveTxt(rawHost)
+	} else {
+		log.Printf("重新解析域名:%s", rawHost)
+		host, err := resolveHostname(rawHost)
+		if err != nil {
+			return err
+		}
+		peer.Endpoint.Host = host
 	}
 	return nil
 }

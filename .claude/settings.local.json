@@ -1,16 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(go vet *)",
-      "Bash(go build *)",
-      "Bash(gofmt -w conf/dnsresolver_windows.go)",
-      "Bash(.deps/llvm-mingw/bin/x86_64-w64-mingw32-windres --version)",
-      "Bash(.deps/go/bin/go version *)",
-      "Bash(powershell -File build-amd64.ps1)",
-      "Bash(rm -f resources_amd64.syso)",
-      "Bash(powershell -NoProfile -File build-amd64.ps1)",
-      "Bash(powershell -NoProfile -Command '& cmd /c \"set GOPATH=E:\\\\git\\\\github\\\\wireguard-windows\\\\.deps\\\\gopath && set GOROOT= && set GOOS=windows && set GOARCH=amd64 && set PATH=E:\\\\git\\\\github\\\\wireguard-windows\\\\.deps\\\\llvm-mingw\\\\bin;E:\\\\git\\\\github\\\\wireguard-windows\\\\.deps;%PATH% && go build -tags load_wgnt_from_rsrc -ldflags=\\\\\"-H windowsgui -s -w\\\\\" -trimpath -buildvcs=false -o E:\\\\git\\\\github\\\\wireguard-windows\\\\amd64\\\\wireguard.exe . 2>&1\"')",
-      "Bash(powershell -NoProfile -Command ' *)"
-    ]
+      "Bash(*)"
+    ],
+    "defaultMode": "acceptEdits"
   }
 }

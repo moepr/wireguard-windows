@@ -62,6 +62,9 @@ func (conf *Config) ToWgQuick() string {
 	if conf.Interface.TableOff {
 		output.WriteString("Table = off\n")
 	}
+	if conf.Interface.HandshakeTimeout > 0 {
+		output.WriteString(fmt.Sprintf("HandshakeTimeout = %d\n", conf.Interface.HandshakeTimeout))
+	}
 
 	for _, peer := range conf.Peers {
 		output.WriteString("\n[Peer]\n")
@@ -136,5 +139,33 @@ func (config *Config) ToDriverConfiguration() (*driver.Interface, uint32) {
 			c.AppendAllowedIP(a)
 		}
 	}
+	return c.Interface()
+}
+
+// ToPeerEndpointUpdate returns a minimal driver config that only updates the endpoint
+// of a single peer, using PeerUpdateOnly flag so the driver doesn't touch other config.
+func (config *Config) ToPeerEndpointUpdate(peerIndex int) (*driver.Interface, uint32) {
+	if peerIndex < 0 || peerIndex >= len(config.Peers) {
+		return nil, 0
+	}
+	peer := config.Peers[peerIndex]
+	var p driver.Peer
+	p.Flags = driver.PeerUpdateOnly | driver.PeerHasPublicKey | driver.PeerHasEndpoint
+	p.PublicKey = peer.PublicKey
+	if !peer.Endpoint.IsEmpty() {
+		addr, err := netip.ParseAddr(peer.Endpoint.Host)
+		if err == nil {
+			var endpoint winipcfg.RawSockaddrInet
+			endpoint.SetAddrPort(netip.AddrPortFrom(addr, peer.Endpoint.Port))
+			p.Endpoint = endpoint
+		}
+	}
+	preallocation := unsafe.Sizeof(driver.Interface{}) + unsafe.Sizeof(driver.Peer{})
+	var c driver.ConfigBuilder
+	c.Preallocate(uint32(preallocation))
+	c.AppendInterface(&driver.Interface{
+		PeerCount: 1,
+	})
+	c.AppendPeer(&p)
 	return c.Interface()
 }

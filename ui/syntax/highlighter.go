@@ -27,6 +27,7 @@ const (
 	highlightComment
 	highlightDelimiter
 	highlightTable
+	highlightHandshakeTimeout
 	highlightCmd
 	highlightError
 )
@@ -370,6 +371,7 @@ const (
 	fieldPostUp
 	fieldPreDown
 	fieldPostDown
+	fieldHandshakeTimeout
 	fieldPeerSection
 	fieldPublicKey
 	fieldPresharedKey
@@ -421,6 +423,8 @@ func (s stringSpan) field() field {
 		return fieldPreDown
 	case s.isCaselessSame("PostDown"):
 		return fieldPostDown
+	case s.isCaselessSame("HandshakeTimeout"):
+		return fieldHandshakeTimeout
 	}
 	return fieldInvalid
 }
@@ -518,6 +522,8 @@ func (hsa *highlightSpanArray) highlightValue(parent, s stringSpan, section fiel
 		hsa.append(parent.s, s, validateHighlight(s.isValidMTU(), highlightMTU))
 	case fieldTable:
 		hsa.append(parent.s, s, validateHighlight(s.isValidTable(), highlightTable))
+	case fieldHandshakeTimeout:
+		hsa.append(parent.s, s, validateHighlight(s.isValidUint(false, 0, 2147483647), highlightHandshakeTimeout))
 	case fieldPreUp, fieldPostUp, fieldPreDown, fieldPostDown:
 		hsa.append(parent.s, s, validateHighlight(s.isValidPrePostUpDown(), highlightCmd))
 	case fieldListenPort:

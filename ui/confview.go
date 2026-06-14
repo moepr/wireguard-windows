@@ -52,6 +52,7 @@ type interfaceView struct {
 	dns          *labelTextLine
 	scripts      *labelTextLine
 	table        *labelTextLine
+	handshakeTimeout *labelTextLine
 	toggleActive *toggleActiveLine
 	lines        []widgetsLine
 }
@@ -316,6 +317,7 @@ func newInterfaceView(parent walk.Container) (*interfaceView, error) {
 		{l18n.Sprintf("DNS servers:"), &iv.dns},
 		{l18n.Sprintf("Scripts:"), &iv.scripts},
 		{l18n.Sprintf("Table:"), &iv.table},
+		{l18n.Sprintf("Handshake timeout:"), &iv.handshakeTimeout},
 	}
 	if iv.lines, err = createLabelTextLines(items, parent, &disposables); err != nil {
 		return nil, err
@@ -441,6 +443,12 @@ func (iv *interfaceView) apply(c *conf.Interface) {
 		iv.table.show(l18n.Sprintf("off"))
 	} else {
 		iv.table.hide()
+	}
+
+	if c.HandshakeTimeout > 0 {
+		iv.handshakeTimeout.show(strconv.Itoa(c.HandshakeTimeout))
+	} else {
+		iv.handshakeTimeout.hide()
 	}
 }
 

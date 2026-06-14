@@ -28,6 +28,8 @@ type tunnelService struct {
 	Path string
 }
 
+const handshakeTimeout = 5 * time.Minute
+
 func (service *tunnelService) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (svcSpecificEC bool, exitCode uint32) {
 	serviceState := svc.StartPending
 	changes <- svc.Status{State: serviceState}
@@ -222,6 +224,8 @@ func (service *tunnelService) Execute(args []string, r <-chan svc.ChangeRequest,
 	changes <- svc.Status{State: serviceState, Accepts: svc.AcceptStop | svc.AcceptShutdown}
 
 	var started bool
+	handshakeCheck := time.NewTicker(30 * time.Second)
+	defer handshakeCheck.Stop()
 	for {
 		select {
 		case c := <-r:
@@ -243,8 +247,59 @@ func (service *tunnelService) Execute(args []string, r <-chan svc.ChangeRequest,
 		case e := <-watcher.errors:
 			serviceError, err = e.serviceError, e.err
 			return
+		case <-handshakeCheck.C:
+			if !started {
+				continue
+			}
+			err = checkAndReResolve(adapter, config)
+			if err != nil {
+				log.Printf("Re-resolve error: %v", err)
+			}
 		}
 	}
+}
+
+func checkAndReResolve(adapter *driver.Adapter, config *conf.Config) error {
+	timeout := handshakeTimeout
+	if config.Interface.HandshakeTimeout > 0 {
+		timeout = time.Duration(config.Interface.HandshakeTimeout) * time.Second
+	}
+	driverIface, err := adapter.Configuration()
+	if err != nil {
+		return fmt.Errorf("get driver config: %w", err)
+	}
+	if driverIface == nil {
+		return nil
+	}
+	now := time.Now()
+	peer := driverIface.FirstPeer()
+	for i := 0; peer != nil; peer = peer.NextPeer() {
+		if i >= len(config.Peers) {
+			break
+		}
+		// LastHandshake is Windows FILETIME (100ns intervals since 1601-01-01 UTC)
+		var handshakeTime time.Time
+		if peer.LastHandshake != 0 {
+			handshakeTime = time.Unix(0, int64(peer.LastHandshake-116444736000000000)*100)
+		}
+		if !handshakeTime.IsZero() && now.Sub(handshakeTime) > timeout && config.Peers[i].Endpoint.NeedResolve() {
+			log.Printf("Peer[%d] last handshake %v ago, exceeding 5min, re-resolving", i, now.Sub(handshakeTime).Round(time.Second))
+			if err := config.ResolveSingleEndpoint(i); err != nil {
+				log.Printf("Peer[%d] re-resolve failed: %v", i, err)
+			} else {
+				updateIface, updateSize := config.ToPeerEndpointUpdate(i)
+				if updateIface != nil {
+					if err = adapter.SetConfiguration(updateIface, updateSize); err != nil {
+						log.Printf("Peer[%d] update endpoint failed: %v", i, err)
+					} else {
+						log.Printf("Peer[%d] endpoint updated to %s:%d", i, config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port)
+					}
+				}
+			}
+		}
+		i++
+	}
+	return nil
 }
 
 func Run(confPath string) error {

@@ -102,6 +102,7 @@ var stylemap = map[highlight]spanStyle{
 	highlightMTU:          {color: win.RGB(0x1C, 0x00, 0xCF)},
 	highlightTable:        {color: win.RGB(0x1C, 0x00, 0xCF)},
 	highlightKeepalive:    {color: win.RGB(0x1C, 0x00, 0xCF)},
+	highlightHandshakeTimeout: {color: win.RGB(0x1C, 0x00, 0xCF)},
 	highlightComment:      {color: win.RGB(0x53, 0x65, 0x79), effects: win.CFE_ITALIC},
 	highlightDelimiter:    {color: win.RGB(0x00, 0x00, 0x00)},
 	highlightCmd:          {color: win.RGB(0x63, 0x75, 0x89)},

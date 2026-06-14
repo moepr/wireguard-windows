@@ -69,7 +69,7 @@ func parseEndpoint(s string) (*Endpoint, error) {
 		}
 		host = host[1 : len(host)-1]
 	}
-	return &Endpoint{host, port}, nil
+	return &Endpoint{Host: host, Port: port}, nil
 }
 
 func parseMTU(s string) (uint16, error) {
@@ -259,7 +259,16 @@ func FromWgQuick(s, name string) (*Config, error) {
 					return nil, err
 				}
 				conf.Interface.TableOff = tableOff
-			default:
+		case "handshaketimeout":
+			t, err := strconv.Atoi(val)
+			if err != nil {
+				return nil, &ParseError{l18n.Sprintf("Invalid handshake timeout"), val}
+			}
+			if t < 0 {
+				return nil, &ParseError{l18n.Sprintf("Handshake timeout must not be negative"), val}
+			}
+			conf.Interface.HandshakeTimeout = t
+		default:
 				return nil, &ParseError{l18n.Sprintf("Invalid key for [Interface] section"), key}
 			}
 		} else if parserState == inPeerSection {
@@ -349,6 +358,7 @@ func FromDriverConfiguration(interfaze *driver.Interface, existingConfig *Config
 			PreDown:   existingConfig.Interface.PreDown,
 			PostDown:  existingConfig.Interface.PostDown,
 			TableOff:  existingConfig.Interface.TableOff,
+		HandshakeTimeout: existingConfig.Interface.HandshakeTimeout,
 		},
 	}
 	if interfaze.Flags&driver.InterfaceHasPrivateKey != 0 {

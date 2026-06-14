@@ -122,7 +122,7 @@ var messageKeyToIndex = map[string]int{
 	"An update to WireGuard is now available. You are advised to update as soon as possible.":     127,
 	"Another tunnel already exists with the name ‘%s’":                                            140,
 	"Another tunnel already exists with the name ‘%s’.":                                           87,
-	"App version: %s\nDriver version: %s\nGo version: %s\nOperating system: %s\nArchitecture: %s": 170,
+	"App version: %s\nDriver version: %s\nGo version: %s\nOperating system: %s\nArchitecture: %s": 172,
 	"Are you sure you would like to delete %d tunnels?":                                           147,
 	"Are you sure you would like to delete tunnel ‘%s’?":                                          149,
 	"Brackets must contain an IPv6 address":                                                       26,
@@ -132,7 +132,7 @@ var messageKeyToIndex = map[string]int{
 	"Config key is missing an equals separator":                                                   35,
 	"Configuration Files (*.zip, *.conf)|*.zip;*.conf|All Files (*.*)|*.*":                        155,
 	"Configuration ZIP Files (*.zip)|*.zip":                                                       157,
-	"Could not enumerate existing tunnels: %v":                                                    174,
+	"Could not enumerate existing tunnels: %v":                                                    177,
 	"Could not import selected configuration: %v":                                                 139,
 	"Create new tunnel":                                                                           73,
 	"DNS servers:":                                                                                53,
@@ -155,6 +155,8 @@ var messageKeyToIndex = map[string]int{
 	"Failed to deactivate tunnel":                                                                 70,
 	"Failed to determine tunnel state":                                                            68,
 	"File ‘%s’ already exists.\n\nDo you want to overwrite it?":                                   90,
+	"Handshake timeout must not be negative":                                                      171,
+	"Handshake timeout:":                                                                          174,
 	"Import tunnel(s) from file":                                                                  156,
 	"Imported %d of %d tunnels":                                                                   144,
 	"Imported %d tunnels":                                                                         143,
@@ -164,6 +166,7 @@ var messageKeyToIndex = map[string]int{
 	"Invalid IP address: ":                                                                        169,
 	"Invalid MTU":                                                                                 27,
 	"Invalid endpoint host":                                                                       25,
+	"Invalid handshake timeout":                                                                   170,
 	"Invalid key for [Interface] section":                                                         37,
 	"Invalid key for [Peer] section":                                                              38,
 	"Invalid key: %v":                                                                             30,
@@ -182,7 +185,7 @@ var messageKeyToIndex = map[string]int{
 	"Now":                                                                                         10,
 	"Peer":                                                                                        72,
 	"Persistent keepalive:":                                                                       58,
-	"Please ask the system administrator to update.":                                              175,
+	"Please ask the system administrator to update.":                                              178,
 	"Preshared key:":                                                                              55,
 	"Public key:":                                                                                 49,
 	"Remove selected tunnel(s)":                                                                   132,
@@ -192,11 +195,11 @@ var messageKeyToIndex = map[string]int{
 	"Status: %s":                                                                                  123,
 	"Status: Complete!":                                                                           167,
 	"Status: Unknown":                                                                             111,
-	"Status: Waiting for administrator":                                                           176,
+	"Status: Waiting for administrator":                                                           179,
 	"Status: Waiting for updater service":                                                         165,
 	"Status: Waiting for user":                                                                    163,
 	"System clock wound backward!":                                                                11,
-	"Table:":                                                                                      171,
+	"Table:":                                                                                      173,
 	"Text Files (*.txt)|*.txt|All Files (*.*)|*.*":                                                102,
 	"The %s tunnel has been activated.":                                                           118,
 	"The %s tunnel has been deactivated.":                                                         120,
@@ -221,7 +224,7 @@ var messageKeyToIndex = map[string]int{
 	"Unknown state":    95,
 	"Update Now":       164,
 	"Usage: %s [\n%s]": 2,
-	"When a configuration has exactly one peer, and that peer has an allowed IPs containing at least one of 0.0.0.0/0 or ::/0, and the interface does not have table off, then the tunnel service engages a firewall ruleset to block all traffic that is neither to nor from the tunnel interface or is to the wrong DNS server, with special exceptions for DHCP and NDP.": 173,
+	"When a configuration has exactly one peer, and that peer has an allowed IPs containing at least one of 0.0.0.0/0 or ::/0, and the interface does not have table off, then the tunnel service engages a firewall ruleset to block all traffic that is neither to nor from the tunnel interface or is to the wrong DNS server, with special exceptions for DHCP and NDP.": 176,
 	"WireGuard Activated":        117,
 	"WireGuard Deactivated":      119,
 	"WireGuard Detection Error":  108,
@@ -239,7 +242,7 @@ var messageKeyToIndex = map[string]int{
 	"disabled, per policy":              65,
 	"enabled":                           66,
 	"no configuration files were found": 138,
-	"off":                               172,
+	"off":                               175,
 	"post-down":                         64,
 	"post-up":                           62,
 	"pre-down":                          63,
@@ -247,7 +250,7 @@ var messageKeyToIndex = map[string]int{
 	"♥ &Donate!":                        45,
 }
 
-var arIndex = []uint32{ // 178 elements
+var arIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000062, 0x00000085,
 	0x000000aa, 0x0000011a, 0x00000186, 0x000001d0,
@@ -298,8 +301,9 @@ var arIndex = []uint32{ // 178 elements
 	0x00000264, 0x00000264, 0x00000264, 0x00000264,
 	0x00000264, 0x00000264, 0x00000264, 0x00000264,
 	0x00000264, 0x00000264, 0x00000264, 0x00000264,
-	0x00000264, 0x00000264,
-} // Size: 736 bytes
+	0x00000264, 0x00000264, 0x00000264, 0x00000264,
+	0x00000264,
+} // Size: 748 bytes
 
 const arData string = "" + // Size: 612 bytes
 	"\x02خطأ\x02(بدون معطيات): تصعيد الصلاحيات و تثبيت مدير الخدمة\x02الاستخد" +
@@ -309,7 +313,7 @@ const arData string = "" + // Size: 612 bytes
 	" الحالية: %[1]v\x02يمكن استخدام WireGuard فقط من قبل المستخدمين الذين هم" +
 	" أعضاء في مجموعة الـ %[1]s المدمجة."
 
-var caIndex = []uint32{ // 178 elements
+var caIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x00000042, 0x00000056,
 	0x00000071, 0x000000b0, 0x000000f5, 0x0000012c,
@@ -360,8 +364,9 @@ var caIndex = []uint32{ // 178 elements
 	0x000013a5, 0x000013b4, 0x000013e0, 0x0000140e,
 	0x00001420, 0x00001420, 0x00001420, 0x00001420,
 	0x00001420, 0x00001420, 0x00001420, 0x00001420,
-	0x00001420, 0x00001420,
-} // Size: 736 bytes
+	0x00001420, 0x00001420, 0x00001420, 0x00001420,
+	0x00001420,
+} // Size: 748 bytes
 
 const caData string = "" + // Size: 5152 bytes
 	"\x02Error\x02(sense argument): eleva i instala el servei d'administrador" +
@@ -447,7 +452,7 @@ const caData string = "" + // Size: 5152 bytes
 	"alitzacions\x02Error: %[1]v. Si us plau, torneu-ho a provar.\x02Estat: C" +
 	"ompletat!"
 
-var csIndex = []uint32{ // 178 elements
+var csIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x0000004f, 0x00000069,
 	0x0000008a, 0x000000bd, 0x00000106, 0x00000138,
@@ -498,8 +503,9 @@ var csIndex = []uint32{ // 178 elements
 	0x00001488, 0x0000149b, 0x000014c3, 0x000014e2,
 	0x000014f4, 0x000014f4, 0x000014f4, 0x000014f4,
 	0x000014f4, 0x000014f4, 0x000014f4, 0x000014f4,
-	0x000014f4, 0x000014f4,
-} // Size: 736 bytes
+	0x000014f4, 0x000014f4, 0x000014f4, 0x000014f4,
+	0x000014f4,
+} // Size: 748 bytes
 
 const csData string = "" + // Size: 5364 bytes
 	"\x02Chyba\x02(žádný argument): Zvýšit oprávnění a instalovat službu sprá" +
@@ -588,7 +594,7 @@ const csData string = "" + // Size: 5364 bytes
 	"yní\x02Stav: Čeká se na službu aktualizací\x02Chyba: %[1]v. Zkuste to zn" +
 	"ovu.\x02Stav: Dokončeno!"
 
-var daIndex = []uint32{ // 178 elements
+var daIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000005, 0x0000003d, 0x00000051,
 	0x0000006d, 0x000000a5, 0x000000ec, 0x00000117,
@@ -639,8 +645,9 @@ var daIndex = []uint32{ // 178 elements
 	0x0000121a, 0x00001226, 0x0000124d, 0x0000126f,
 	0x00001280, 0x00001280, 0x00001280, 0x00001280,
 	0x00001280, 0x00001280, 0x00001280, 0x00001280,
-	0x00001280, 0x00001280,
-} // Size: 736 bytes
+	0x00001280, 0x00001280, 0x00001280, 0x00001280,
+	0x00001280,
+} // Size: 748 bytes
 
 const daData string = "" + // Size: 4736 bytes
 	"\x02Fejl\x02(intet argument): ophøj og installer manager-tjenesten\x02Br" +
@@ -721,7 +728,7 @@ const daData string = "" + // Size: 4736 bytes
 	"r nu\x02Status: Venter på opdateringstjeneste\x02Fejl: %[1]v. Prøv venli" +
 	"gst igen.\x02Status: Færdig!"
 
-var deIndex = []uint32{ // 178 elements
+var deIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000059, 0x00000074,
 	0x0000008b, 0x000000e1, 0x00000137, 0x0000016b,
@@ -772,8 +779,9 @@ var deIndex = []uint32{ // 178 elements
 	0x000014ea, 0x000014fe, 0x00001527, 0x00001555,
 	0x00001565, 0x00001565, 0x00001565, 0x00001565,
 	0x00001565, 0x00001565, 0x00001565, 0x00001565,
-	0x00001565, 0x00001565,
-} // Size: 736 bytes
+	0x00001565, 0x00001565, 0x00001565, 0x00001565,
+	0x00001565,
+} // Size: 748 bytes
 
 const deData string = "" + // Size: 5477 bytes
 	"\x02Fehler\x02(kein Argument): Als Administrator ausführen und den Manag" +
@@ -864,7 +872,7 @@ const deData string = "" + // Size: 5477 bytes
 	"uf Aktualisierungsdienst warten\x02Fehler: %[1]v. Bitte versuchen Sie es" +
 	" erneut.\x02Status: Fertig!"
 
-var elIndex = []uint32{ // 178 elements
+var elIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000d, 0x0000000d, 0x00000028,
 	0x00000057, 0x000000da, 0x000000da, 0x000000da,
@@ -915,8 +923,9 @@ var elIndex = []uint32{ // 178 elements
 	0x00000e7b, 0x00000e97, 0x00000ee9, 0x00000f2c,
 	0x00000f5a, 0x00000f5a, 0x00000f5a, 0x00000f5a,
 	0x00000f5a, 0x00000f5a, 0x00000f5a, 0x00000f5a,
-	0x00000f5a, 0x00000f5a,
-} // Size: 736 bytes
+	0x00000f5a, 0x00000f5a, 0x00000f5a, 0x00000f5a,
+	0x00000f5a,
+} // Size: 748 bytes
 
 const elData string = "" + // Size: 3930 bytes
 	"\x02Σφάλμα\x02Χρήση: %[1]s [\x0a%[2]s]\x02Επιλογές γραμμής εντολών\x02Δε" +
@@ -961,7 +970,7 @@ const elData string = "" + // Size: 3930 bytes
 	"α\x02Κατάσταση: Αναμονή για υπηρεσία ενημερώσεων\x02Σφάλμα: %[1]v. Παρα" +
 	"καλώ δοκιμάστε ξανά.\x02Κατάσταση: Ολοκληρώθηκε!"
 
-var enIndex = []uint32{ // 178 elements
+var enIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x00000039, 0x0000004f,
 	0x00000064, 0x000000aa, 0x000000e9, 0x00000115,
@@ -1010,12 +1019,13 @@ var enIndex = []uint32{ // 178 elements
 	// Entry A0 - BF
 	0x00001026, 0x0000103e, 0x0000109d, 0x000010f2,
 	0x0000110b, 0x00001116, 0x0000113a, 0x0000115a,
-	0x0000116c, 0x00001178, 0x00001191, 0x000011f8,
-	0x000011ff, 0x00001203, 0x0000136a, 0x00001396,
-	0x000013c5, 0x000013e7,
-} // Size: 736 bytes
+	0x0000116c, 0x00001178, 0x00001191, 0x000011ab,
+	0x000011d2, 0x00001239, 0x00001240, 0x00001253,
+	0x00001257, 0x000013be, 0x000013ea, 0x00001419,
+	0x0000143b,
+} // Size: 748 bytes
 
-const enData string = "" + // Size: 5095 bytes
+const enData string = "" + // Size: 5179 bytes
 	"\x02Error\x02(no argument): elevate and install manager service\x02Usage" +
 	": %[1]s [\x0a%[2]s]\x02Command Line Options\x02Unable to determine wheth" +
 	"er the process is running under WOW64: %[1]v\x02You must use the native " +
@@ -1090,17 +1100,19 @@ const enData string = "" + // Size: 5095 bytes
 	"date without delay.\x02Status: Waiting for user\x02Update Now\x02Status:" +
 	" Waiting for updater service\x02Error: %[1]v. Please try again.\x02Statu" +
 	"s: Complete!\x04\x00\x01 \x07\x02Error:\x04\x00\x01 \x14\x02Invalid IP a" +
-	"ddress:\x02App version: %[1]s\x0aDriver version: %[2]s\x0aGo version: %[" +
-	"3]s\x0aOperating system: %[4]s\x0aArchitecture: %[5]s\x02Table:\x02off" +
-	"\x02When a configuration has exactly one peer, and that peer has an allo" +
-	"wed IPs containing at least one of 0.0.0.0/0 or ::/0, and the interface " +
-	"does not have table off, then the tunnel service engages a firewall rule" +
-	"set to block all traffic that is neither to nor from the tunnel interfac" +
-	"e or is to the wrong DNS server, with special exceptions for DHCP and ND" +
-	"P.\x02Could not enumerate existing tunnels: %[1]v\x02Please ask the syst" +
-	"em administrator to update.\x02Status: Waiting for administrator"
+	"ddress:\x02Invalid handshake timeout\x02Handshake timeout must not be ne" +
+	"gative\x02App version: %[1]s\x0aDriver version: %[2]s\x0aGo version: %[3" +
+	"]s\x0aOperating system: %[4]s\x0aArchitecture: %[5]s\x02Table:\x02Handsh" +
+	"ake timeout:\x02off\x02When a configuration has exactly one peer, and th" +
+	"at peer has an allowed IPs containing at least one of 0.0.0.0/0 or ::/0," +
+	" and the interface does not have table off, then the tunnel service enga" +
+	"ges a firewall ruleset to block all traffic that is neither to nor from " +
+	"the tunnel interface or is to the wrong DNS server, with special excepti" +
+	"ons for DHCP and NDP.\x02Could not enumerate existing tunnels: %[1]v\x02" +
+	"Please ask the system administrator to update.\x02Status: Waiting for ad" +
+	"ministrator"
 
-var es_ESIndex = []uint32{ // 178 elements
+var es_ESIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x00000044, 0x00000058,
 	0x00000077, 0x000000c5, 0x000000ff, 0x00000137,
@@ -1151,8 +1163,9 @@ var es_ESIndex = []uint32{ // 178 elements
 	0x00001471, 0x00001482, 0x000014b2, 0x000014dd,
 	0x000014f1, 0x000014f1, 0x000014f1, 0x000014f1,
 	0x000014f1, 0x000014f1, 0x000014f1, 0x000014f1,
-	0x000014f1, 0x000014f1,
-} // Size: 736 bytes
+	0x000014f1, 0x000014f1, 0x000014f1, 0x000014f1,
+	0x000014f1,
+} // Size: 748 bytes
 
 const es_ESData string = "" + // Size: 5361 bytes
 	"\x02Error\x02(sin argumento): eleve e instale el servicio de administrad" +
@@ -1240,7 +1253,7 @@ const es_ESData string = "" + // Size: 5361 bytes
 	"\x02Actualizar ahora\x02Estado: Esperando al servicio de actualización" +
 	"\x02Error: %[1]v. Por favor, intente de nuevo.\x02Estado: ¡Completo!"
 
-var etIndex = []uint32{ // 178 elements
+var etIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000005, 0x0000003c, 0x00000055,
 	0x00000066, 0x000000ae, 0x000000ed, 0x0000011c,
@@ -1291,8 +1304,9 @@ var etIndex = []uint32{ // 178 elements
 	0x0000123d, 0x0000124b, 0x00001270, 0x00001294,
 	0x000012a5, 0x000012a5, 0x000012a5, 0x000012a5,
 	0x000012a5, 0x000012a5, 0x000012a5, 0x000012a5,
-	0x000012a5, 0x000012a5,
-} // Size: 736 bytes
+	0x000012a5, 0x000012a5, 0x000012a5, 0x000012a5,
+	0x000012a5,
+} // Size: 748 bytes
 
 const etData string = "" + // Size: 4773 bytes
 	"\x02Viga\x02(tühi muutuja): paigalda haldusteenus ülemõigustega\x02Kasut" +
@@ -1373,7 +1387,7 @@ const etData string = "" + // Size: 4773 bytes
 	"n uuendusteenuse järel\x02Viga: %[1]v. Palun proovige uuesti.\x02Staatus" +
 	": Valmis!"
 
-var faIndex = []uint32{ // 178 elements
+var faIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x0000005b, 0x0000007a,
 	0x0000009e, 0x000000fe, 0x00000171, 0x000001a3,
@@ -1424,8 +1438,9 @@ var faIndex = []uint32{ // 178 elements
 	0x00001bdc, 0x00001c05, 0x00001c4c, 0x00001c84,
 	0x00001c9f, 0x00001c9f, 0x00001c9f, 0x00001c9f,
 	0x00001c9f, 0x00001c9f, 0x00001c9f, 0x00001c9f,
-	0x00001c9f, 0x00001c9f,
-} // Size: 736 bytes
+	0x00001c9f, 0x00001c9f, 0x00001c9f, 0x00001c9f,
+	0x00001c9f,
+} // Size: 748 bytes
 
 const faData string = "" + // Size: 7327 bytes
 	"\x02خطا\x02(بدون ورودیی): سرویس مدیریت را ارتقا و نصب کنید\x02استفاده: %" +
@@ -1506,7 +1521,7 @@ const faData string = "" + // Size: 7327 bytes
 	"رسانی کن\x02وضعیت: درانتظار برای سرویس به\u200cروزرسان\x02خطا: %[1]v. ل" +
 	"طفا دوباره تلاش کنید.\x02وضعیت: کامل شد!"
 
-var fiIndex = []uint32{ // 178 elements
+var fiIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x00000056, 0x0000006f,
 	0x00000085, 0x000000ea, 0x00000133, 0x0000016b,
@@ -1557,8 +1572,9 @@ var fiIndex = []uint32{ // 178 elements
 	0x0000117e, 0x0000118c, 0x0000118c, 0x0000118c,
 	0x0000119a, 0x0000119a, 0x0000119a, 0x0000119a,
 	0x0000119a, 0x0000119a, 0x0000119a, 0x0000119a,
-	0x0000119a, 0x0000119a,
-} // Size: 736 bytes
+	0x0000119a, 0x0000119a, 0x0000119a, 0x0000119a,
+	0x0000119a,
+} // Size: 748 bytes
 
 const fiData string = "" + // Size: 4506 bytes
 	"\x02Virhe\x02(ei määrityksiä): suorita järjestelmäoikeuksilla ja asenna " +
@@ -1634,7 +1650,7 @@ const fiData string = "" + // Size: 4506 bytes
 	"oistuttaessa\x02Tila: Odotetaan käyttäjää\x02Päivitä nyt\x02Tila: Valmis" +
 	"!"
 
-var frIndex = []uint32{ // 178 elements
+var frIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000046, 0x00000063,
 	0x00000083, 0x000000cb, 0x00000112, 0x0000014b,
@@ -1685,8 +1701,9 @@ var frIndex = []uint32{ // 178 elements
 	0x00001558, 0x00001572, 0x000015a1, 0x000015c6,
 	0x000015d7, 0x000015d7, 0x000015d7, 0x000015d7,
 	0x000015d7, 0x000015d7, 0x000015d7, 0x000015d7,
-	0x000015d7, 0x000015d7,
-} // Size: 736 bytes
+	0x000015d7, 0x000015d7, 0x000015d7, 0x000015d7,
+	0x000015d7,
+} // Size: 748 bytes
 
 const frData string = "" + // Size: 5591 bytes
 	"\x02Erreur\x02(sans argument) : élever et installer service du gestionna" +
@@ -1778,7 +1795,7 @@ const frData string = "" + // Size: 5591 bytes
 	"me de mise à jour\x02Erreur : %[1]v. Veuillez réessayer.\x02État: Termin" +
 	"é!"
 
-var idIndex = []uint32{ // 178 elements
+var idIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000a, 0x00000047, 0x00000062,
 	0x00000074, 0x000000bf, 0x000000fe, 0x0000012f,
@@ -1829,8 +1846,9 @@ var idIndex = []uint32{ // 178 elements
 	0x000008aa, 0x000008aa, 0x000008aa, 0x000008aa,
 	0x000008aa, 0x000008aa, 0x000008aa, 0x000008aa,
 	0x000008aa, 0x000008aa, 0x000008aa, 0x000008aa,
-	0x000008aa, 0x000008aa,
-} // Size: 736 bytes
+	0x000008aa, 0x000008aa, 0x000008aa, 0x000008aa,
+	0x000008aa,
+} // Size: 748 bytes
 
 const idData string = "" + // Size: 2218 bytes
 	"\x02Kesalahan\x02(tidak ada argumen): naikkan akses dan instal servis ma" +
@@ -1871,7 +1889,7 @@ const idData string = "" + // Size: 2218 bytes
 	"&Hapus tunnel terpilih\x02Tidak dapat mengimpor konfigurasi yang dipilih" +
 	": %[1]v"
 
-var itIndex = []uint32{ // 178 elements
+var itIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000044, 0x0000005d,
 	0x00000075, 0x000000bd, 0x00000101, 0x0000013a,
@@ -1922,8 +1940,9 @@ var itIndex = []uint32{ // 178 elements
 	0x000013a4, 0x000013b1, 0x000013e0, 0x000013fd,
 	0x0000140e, 0x0000140e, 0x0000140e, 0x0000140e,
 	0x0000140e, 0x0000140e, 0x0000140e, 0x0000140e,
-	0x0000140e, 0x0000140e,
-} // Size: 736 bytes
+	0x0000140e, 0x0000140e, 0x0000140e, 0x0000140e,
+	0x0000140e,
+} // Size: 748 bytes
 
 const itData string = "" + // Size: 5134 bytes
 	"\x02Errore\x02(nessun argomento): eleva e installa il servizio di gestio" +
@@ -2010,7 +2029,7 @@ const itData string = "" + // Size: 5134 bytes
 	"esa del servizio di aggiornamento\x02Errore: %[1]v. Prova ancora.\x02Sta" +
 	"to: Completo!"
 
-var jaIndex = []uint32{ // 178 elements
+var jaIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000a, 0x0000005b, 0x00000075,
 	0x0000009a, 0x000000e6, 0x00000140, 0x0000017e,
@@ -2061,8 +2080,9 @@ var jaIndex = []uint32{ // 178 elements
 	0x0000165b, 0x0000166b, 0x0000169e, 0x000016d3,
 	0x000016e5, 0x000016e5, 0x000016e5, 0x000016e5,
 	0x000016e5, 0x000016e5, 0x000016e5, 0x000016e5,
-	0x000016e5, 0x000016e5,
-} // Size: 736 bytes
+	0x000016e5, 0x000016e5, 0x000016e5, 0x000016e5,
+	0x000016e5,
+} // Size: 748 bytes
 
 const jaData string = "" + // Size: 5861 bytes
 	"\x02エラー\x02(引数なし): 管理者権限でmanagerサービスをインストールする\x02使い方: %[1]s [\x0a%[2]s]" +
@@ -2115,7 +2135,7 @@ const jaData string = "" + // Size: 5861 bytes
 	"に更新することを強く推奨します。\x02状態: ユーザーからの応答待ち\x02今すぐ更新\x02状態: アップデータサービスを待機中\x02" +
 	"エラー: %[1]v。再度実行してください。\x02状態: 完了！"
 
-var koIndex = []uint32{ // 178 elements
+var koIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x0000003e, 0x00000055,
 	0x00000066, 0x000000af, 0x000000fc, 0x00000130,
@@ -2166,8 +2186,9 @@ var koIndex = []uint32{ // 178 elements
 	0x000013a5, 0x000013b9, 0x000013ec, 0x00001417,
 	0x00001427, 0x00001427, 0x00001427, 0x00001427,
 	0x00001427, 0x00001427, 0x00001427, 0x00001427,
-	0x00001427, 0x00001427,
-} // Size: 736 bytes
+	0x00001427, 0x00001427, 0x00001427, 0x00001427,
+	0x00001427,
+} // Size: 748 bytes
 
 const koData string = "" + // Size: 5159 bytes
 	"\x02오류\x02(인수 없음): 관리자 서비스 상승 및 설치\x02사용: %[1]s [\x0a%[2]s]\x02명령줄 옵션" +
@@ -2219,7 +2240,7 @@ const koData string = "" + // Size: 5159 bytes
 	"없이 업데이트하는 것이 좋습니다.\x02상태: 사용자를 기다리는 중\x02지금 업데이트\x02상태: 업데이터 서비스를 기다리는" +
 	" 중\x02오류: %[1]v. 다시 시도해 주세요.\x02상태: 완료!"
 
-var nlIndex = []uint32{ // 178 elements
+var nlIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000c, 0x0000004f, 0x0000006d,
 	0x00000084, 0x000000c7, 0x0000010a, 0x00000139,
@@ -2270,8 +2291,9 @@ var nlIndex = []uint32{ // 178 elements
 	0x0000127e, 0x0000128b, 0x0000128b, 0x000012ad,
 	0x000012bf, 0x000012bf, 0x000012bf, 0x000012bf,
 	0x000012bf, 0x000012bf, 0x000012bf, 0x000012bf,
-	0x000012bf, 0x000012bf,
-} // Size: 736 bytes
+	0x000012bf, 0x000012bf, 0x000012bf, 0x000012bf,
+	0x000012bf,
+} // Size: 748 bytes
 
 const nlData string = "" + // Size: 4799 bytes
 	"\x02Foutmelding\x02(geen argumenten): Verhoog rechten en installeer behe" +
@@ -2353,7 +2375,7 @@ const nlData string = "" + // Size: 4799 bytes
 	"en.\x02Status: Wachten op gebruiker\x02Nu Bijwerken\x02Fout: %[1]v. Prob" +
 	"eer het opnieuw.\x02Status: Voltooid!"
 
-var pa_INIndex = []uint32{ // 178 elements
+var pa_INIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000010, 0x00000010, 0x00000030,
 	0x0000005d, 0x000000ea, 0x0000017f, 0x000001e6,
@@ -2404,8 +2426,9 @@ var pa_INIndex = []uint32{ // 178 elements
 	0x00001fa4, 0x00001fce, 0x00002038, 0x00002079,
 	0x00002098, 0x00002098, 0x00002098, 0x00002098,
 	0x00002098, 0x00002098, 0x00002098, 0x00002098,
-	0x00002098, 0x00002098,
-} // Size: 736 bytes
+	0x00002098, 0x00002098, 0x00002098, 0x00002098,
+	0x00002098,
+} // Size: 748 bytes
 
 const pa_INData string = "" + // Size: 8344 bytes
 	"\x02ਗ਼ਲਤੀ\x02ਵਰਤੋਂ: %[1]s [\x0a%[2]s]\x02ਕਮਾਂਡ ਲਾਈਨ ਚੋਣਾਂ\x02ਪਤਾ ਲਗਾਉਣ ਲ" +
@@ -2472,7 +2495,7 @@ const pa_INData string = "" + // Size: 8344 bytes
 	"ੱਪਡੇਟ ਕਰੋ\x02ਹਾਲਤ: ਅੱਪਡੇਟਰ ਸੇਵਾ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ\x02ਗ਼ਲਤੀ: %[1]v" +
 	"। ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।\x02ਸਥਿਤੀ: ਪੂਰਾ!"
 
-var plIndex = []uint32{ // 178 elements
+var plIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x0000004f, 0x00000067,
 	0x0000007e, 0x000000cc, 0x00000108, 0x0000013f,
@@ -2523,8 +2546,9 @@ var plIndex = []uint32{ // 178 elements
 	0x000015af, 0x000015c0, 0x000015e8, 0x0000160a,
 	0x0000161e, 0x0000161e, 0x0000161e, 0x0000161e,
 	0x0000161e, 0x0000161e, 0x0000161e, 0x0000161e,
-	0x0000161e, 0x0000161e,
-} // Size: 736 bytes
+	0x0000161e, 0x0000161e, 0x0000161e, 0x0000161e,
+	0x0000161e,
+} // Size: 748 bytes
 
 const plData string = "" + // Size: 5662 bytes
 	"\x02Błąd\x02(brak argumentu): Podnieś uprawnienia i zainstaluj usługę me" +
@@ -2618,7 +2642,7 @@ const plData string = "" + // Size: 5662 bytes
 	"na usługę aktualizacji\x02Błąd: %[1]v. Spróbuj ponownie.\x02Status: Ukoń" +
 	"czone!"
 
-var pt_BRIndex = []uint32{ // 178 elements
+var pt_BRIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000005, 0x0000003f, 0x00000053,
 	0x00000070, 0x000000c2, 0x00000102, 0x0000013c,
@@ -2669,8 +2693,9 @@ var pt_BRIndex = []uint32{ // 178 elements
 	0x000013a4, 0x000013b4, 0x000013e1, 0x0000140a,
 	0x00001428, 0x00001428, 0x00001428, 0x00001428,
 	0x00001428, 0x00001428, 0x00001428, 0x00001428,
-	0x00001428, 0x00001428,
-} // Size: 736 bytes
+	0x00001428, 0x00001428, 0x00001428, 0x00001428,
+	0x00001428,
+} // Size: 748 bytes
 
 const pt_BRData string = "" + // Size: 5160 bytes
 	"\x02Erro\x02(sem argumento): elevar e instalar o serviço gerenciador\x02" +
@@ -2755,7 +2780,7 @@ const pt_BRData string = "" + // Size: 5160 bytes
 	"lizador\x02Erro: %[1]v. Por favor, tente novamente.\x02Status da tarefa:" +
 	" Concluída!"
 
-var roIndex = []uint32{ // 178 elements
+var roIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x0000005d, 0x00000077,
 	0x00000092, 0x000000d1, 0x0000011a, 0x0000014e,
@@ -2806,8 +2831,9 @@ var roIndex = []uint32{ // 178 elements
 	0x0000154c, 0x0000155f, 0x0000158d, 0x000015b0,
 	0x000015c4, 0x000015c4, 0x000015c4, 0x000015c4,
 	0x000015c4, 0x000015c4, 0x000015c4, 0x000015c4,
-	0x000015c4, 0x000015c4,
-} // Size: 736 bytes
+	0x000015c4, 0x000015c4, 0x000015c4, 0x000015c4,
+	0x000015c4,
+} // Size: 748 bytes
 
 const roData string = "" + // Size: 5572 bytes
 	"\x02Eroare\x02(fără argument): obținere drept administrativ și instalare" +
@@ -2899,7 +2925,7 @@ const roData string = "" + // Size: 5572 bytes
 	"izează acum\x02Stare: se așteaptă serviciul de actualizare\x02Eroare: %[" +
 	"1]v. Încearcă din nou.\x02Stare: finalizată!"
 
-var ruIndex = []uint32{ // 178 elements
+var ruIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000d, 0x000000a9, 0x000000ca,
 	0x000000ff, 0x0000017c, 0x000001ea, 0x0000024b,
@@ -2950,8 +2976,9 @@ var ruIndex = []uint32{ // 178 elements
 	0x0000220b, 0x00002229, 0x0000225d, 0x00002296,
 	0x000022b8, 0x000022b8, 0x000022b8, 0x000022b8,
 	0x000022b8, 0x000022b8, 0x000022b8, 0x000022b8,
-	0x000022b8, 0x000022b8,
-} // Size: 736 bytes
+	0x000022b8, 0x000022b8, 0x000022b8, 0x000022b8,
+	0x000022b8,
+} // Size: 748 bytes
 
 const ruData string = "" + // Size: 8888 bytes
 	"\x02Ошибка\x02(нет аргумента): получить права администратора и установит" +
@@ -3043,7 +3070,7 @@ const ruData string = "" + // Size: 8888 bytes
 	"\x02Статус: ожидание обновления\x02Ошибка: %[1]v. Попробуйте еще раз." +
 	"\x02Статус: завершено!"
 
-var si_LKIndex = []uint32{ // 178 elements
+var si_LKIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000013, 0x000000a9, 0x000000cc,
 	0x000000fc, 0x00000197, 0x00000223, 0x00000293,
@@ -3094,8 +3121,9 @@ var si_LKIndex = []uint32{ // 178 elements
 	0x00002800, 0x00002829, 0x0000288c, 0x000028cf,
 	0x00002903, 0x00002903, 0x00002903, 0x00002903,
 	0x00002903, 0x00002903, 0x00002903, 0x00002903,
-	0x00002903, 0x00002903,
-} // Size: 736 bytes
+	0x00002903, 0x00002903, 0x00002903, 0x00002903,
+	0x00002903,
+} // Size: 748 bytes
 
 const si_LKData string = "" + // Size: 10499 bytes
 	"\x02දෝෂයකි\x02(තර්කයක් නැත): කළමනාකරු සේවාව ඉහළ නැංවීම සහ ස්ථාපනය කිරීම" +
@@ -3177,7 +3205,7 @@ const si_LKData string = "" + // Size: 10499 bytes
 	"ාවත්කාල සේවාව සඳහා රැඳෙමින්\x02දෝෂය: %[1]v. යළි උත්සාහ කරන්න.\x02තත්" +
 	"\u200dවය: සම්පූර්ණයි!"
 
-var skIndex = []uint32{ // 178 elements
+var skIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x0000005e, 0x00000078,
 	0x00000097, 0x000000d1, 0x0000011e, 0x00000156,
@@ -3228,8 +3256,9 @@ var skIndex = []uint32{ // 178 elements
 	0x00001629, 0x0000163d, 0x00001667, 0x00001687,
 	0x0000169a, 0x0000169a, 0x0000169a, 0x0000169a,
 	0x0000169a, 0x0000169a, 0x0000169a, 0x0000169a,
-	0x0000169a, 0x0000169a,
-} // Size: 736 bytes
+	0x0000169a, 0x0000169a, 0x0000169a, 0x0000169a,
+	0x0000169a,
+} // Size: 748 bytes
 
 const skData string = "" + // Size: 5786 bytes
 	"\x02Chyba\x02(bez argumentu): získať administrátorské práva a nainštalov" +
@@ -3322,7 +3351,7 @@ const skData string = "" + // Size: 5786 bytes
 	"Stav: Čaká sa na aktualizačnú službu\x02Chyba: %[1]v. Skúste to znova." +
 	"\x02Stav: Dokončené!"
 
-var slIndex = []uint32{ // 178 elements
+var slIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000058, 0x00000070,
 	0x00000089, 0x000000c1, 0x00000111, 0x00000148,
@@ -3373,8 +3402,9 @@ var slIndex = []uint32{ // 178 elements
 	0x00001458, 0x00001466, 0x0000148d, 0x000014af,
 	0x000014c1, 0x000014c1, 0x000014c1, 0x000014c1,
 	0x000014c1, 0x000014c1, 0x000014c1, 0x000014c1,
-	0x000014c1, 0x000014c1,
-} // Size: 736 bytes
+	0x000014c1, 0x000014c1, 0x000014c1, 0x000014c1,
+	0x000014c1,
+} // Size: 748 bytes
 
 const slData string = "" + // Size: 5313 bytes
 	"\x02Napaka\x02(brez argumenta): povzdigni na skrbniške pravice in namest" +
@@ -3465,7 +3495,7 @@ const slData string = "" + // Size: 5313 bytes
 	"Posodobi zdaj\x02Status: Čaka na servis za posodobitev\x02Napaka: %[1]v." +
 	" Poskusite ponovno.\x02Status: Končano!"
 
-var sv_SEIndex = []uint32{ // 178 elements
+var sv_SEIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000004, 0x0000003c, 0x00000058,
 	0x0000006f, 0x000000af, 0x000000f7, 0x0000012f,
@@ -3516,8 +3546,9 @@ var sv_SEIndex = []uint32{ // 178 elements
 	0x0000124d, 0x0000125a, 0x00001282, 0x000012a7,
 	0x000012b8, 0x000012b8, 0x000012b8, 0x000012b8,
 	0x000012b8, 0x000012b8, 0x000012b8, 0x000012b8,
-	0x000012b8, 0x000012b8,
-} // Size: 736 bytes
+	0x000012b8, 0x000012b8, 0x000012b8, 0x000012b8,
+	0x000012b8,
+} // Size: 748 bytes
 
 const sv_SEData string = "" + // Size: 4792 bytes
 	"\x02Fel\x02(inget argument): höj och installera hanterartjänsten\x02Anvä" +
@@ -3597,7 +3628,7 @@ const sv_SEData string = "" + // Size: 4792 bytes
 	"atus: Väntar på användaren\x02Uppdatera nu\x02Status: Väntar på uppdater" +
 	"ingstjänst\x02Fel: %[1]v. Vänligen försök igen.\x02Status: Färdig!"
 
-var trIndex = []uint32{ // 178 elements
+var trIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000005, 0x00000053, 0x0000006d,
 	0x00000089, 0x000000cd, 0x00000112, 0x0000013d,
@@ -3648,8 +3679,9 @@ var trIndex = []uint32{ // 178 elements
 	0x00001330, 0x00001341, 0x0000136c, 0x00001392,
 	0x000013a6, 0x000013a6, 0x000013a6, 0x000013a6,
 	0x000013a6, 0x000013a6, 0x000013a6, 0x000013a6,
-	0x000013a6, 0x000013a6,
-} // Size: 736 bytes
+	0x000013a6, 0x000013a6, 0x000013a6, 0x000013a6,
+	0x000013a6,
+} // Size: 748 bytes
 
 const trData string = "" + // Size: 5030 bytes
 	"\x02Hata\x02(parametre belirtilmediyse): gerekli izinleri al ve yönetim " +
@@ -3729,7 +3761,7 @@ const trData string = "" + // Size: 5030 bytes
 	"\x02Şimdi güncelle\x02Durum: Güncelleştirme hizmeti bekleniyor\x02Hata: " +
 	"%[1]v. Lütfen yeniden deneyin.\x02Durum: Tamamlandı!"
 
-var ukIndex = []uint32{ // 178 elements
+var ukIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000f, 0x0000008e, 0x000000b7,
 	0x000000ea, 0x00000144, 0x000001c2, 0x0000021b,
@@ -3780,8 +3812,9 @@ var ukIndex = []uint32{ // 178 elements
 	0x0000208e, 0x000020a8, 0x000020f0, 0x0000213c,
 	0x00002159, 0x00002159, 0x00002159, 0x00002159,
 	0x00002159, 0x00002159, 0x00002159, 0x00002159,
-	0x00002159, 0x00002159,
-} // Size: 736 bytes
+	0x00002159, 0x00002159, 0x00002159, 0x00002159,
+	0x00002159,
+} // Size: 748 bytes
 
 const ukData string = "" + // Size: 8537 bytes
 	"\x02Помилка\x02(немає аргумента): отримати права аднімістратора і встано" +
@@ -3871,7 +3904,7 @@ const ukData string = "" + // Size: 8537 bytes
 	"жбу оновлення\x02Помилка: %[1]v. Будь ласка, спробуйте ще раз.\x02Стан:" +
 	" Завершено"
 
-var viIndex = []uint32{ // 178 elements
+var viIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000006, 0x00000006, 0x00000022,
 	0x0000003b, 0x0000003b, 0x0000003b, 0x0000003b,
@@ -3922,8 +3955,9 @@ var viIndex = []uint32{ // 178 elements
 	0x00000369, 0x00000369, 0x00000369, 0x00000369,
 	0x00000369, 0x00000369, 0x00000369, 0x00000369,
 	0x00000369, 0x00000369, 0x00000369, 0x00000369,
-	0x00000369, 0x00000369,
-} // Size: 736 bytes
+	0x00000369, 0x00000369, 0x00000369, 0x00000369,
+	0x00000369,
+} // Size: 748 bytes
 
 const viData string = "" + // Size: 873 bytes
 	"\x02Lỗi\x02Sử dụng: %[1]s [\x0a%[2]s]\x02Tùy chọn dòng lệnh\x02Vừa xong" +
@@ -3941,7 +3975,7 @@ const viData string = "" + // Size: 873 bytes
 	"p lệ.\x02Không thể liệt kê các VPN\x02VPN đã tồn tại\x02Đã tồn tại VPN v" +
 	"ới tên ‘%[1]s’."
 
-var zh_CNIndex = []uint32{ // 178 elements
+var zh_CNIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000030, 0x00000047,
 	0x00000057, 0x0000008b, 0x000000c9, 0x000000ef,
@@ -3991,11 +4025,12 @@ var zh_CNIndex = []uint32{ // 178 elements
 	0x00000e48, 0x00000e63, 0x00000ec4, 0x00000efc,
 	0x00000f11, 0x00000f1e, 0x00000f39, 0x00000f56,
 	0x00000f68, 0x00000f68, 0x00000f68, 0x00000f68,
-	0x00000f68, 0x00000f68, 0x00000f68, 0x00000f68,
-	0x00000f68, 0x00000f68,
-} // Size: 736 bytes
+	0x00000f68, 0x00000f68, 0x00000f68, 0x00000f7c,
+	0x00000f7c, 0x00000f7c, 0x00000f7c, 0x00000f7c,
+	0x00000f7c,
+} // Size: 748 bytes
 
-const zh_CNData string = "" + // Size: 3944 bytes
+const zh_CNData string = "" + // Size: 3964 bytes
 	"\x02错误\x02(无参数): 提升并安装管理服务\x02用法: %[1]s [\x0a%[2]s]\x02命令行选项\x02无法确定该进程是" +
 	"否在WOW64下运行: %[1]v\x02您必须在此计算机上使用原生版本的 WireGuard。\x02无法打开当前进程令牌: %[1]v" +
 	"\x02WireGuard 可能只能被内建的 %[1]s 小组中的成员使用。\x02WireGuard 正在运行，但用户界面只能从内建的 %[1" +
@@ -4035,9 +4070,9 @@ const zh_CNData string = "" + // Size: 3944 bytes
 	"|*.*\x02从文件导入隧道\x02配置文件 (*.zip)|*.zip\x02导出配置文件 (ZIP 压缩包)\x02%[1]s (未签名版" +
 	"本，禁用自动更新)\x02退出 WireGuard 时出错\x02无法停止服务: %[1]v。您可能需要在服务管理器中手动停止 WireGu" +
 	"ard 服务。\x02发现新版 WireGuard。强烈建议您现在安装。\x02状态: 等待用户\x02立即更新\x02状态: 等待更新服务" +
-	"\x02错误: %[1]v。请重试。\x02状态: 完成！"
+	"\x02错误: %[1]v。请重试。\x02状态: 完成！\x02握手超时时间:"
 
-var zh_TWIndex = []uint32{ // 178 elements
+var zh_TWIndex = []uint32{ // 181 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000007, 0x00000037, 0x00000056,
 	0x00000066, 0x000000a4, 0x000000df, 0x00000110,
@@ -4088,8 +4123,9 @@ var zh_TWIndex = []uint32{ // 178 elements
 	0x00000fa2, 0x00000faf, 0x00000fcb, 0x00000ff0,
 	0x00001006, 0x00001006, 0x00001006, 0x00001006,
 	0x00001006, 0x00001006, 0x00001006, 0x00001006,
-	0x00001006, 0x00001006,
-} // Size: 736 bytes
+	0x00001006, 0x00001006, 0x00001006, 0x00001006,
+	0x00001006,
+} // Size: 748 bytes
 
 const zh_TWData string = "" + // Size: 4102 bytes
 	"\x02錯誤\x02(無參數)：提升權限並安裝管理服務\x02使用方法： %[1]s [\x0a%[2]s]\x02命令列選項\x02無法確定該" +
@@ -4134,4 +4170,4 @@ const zh_TWData string = "" + // Size: 4102 bytes
 	"結束 WireGuard 服務。\x02更新的 WireGuard 已經為您準備好了。\x0a強烈建議您立即進行更新。\x02狀態：等待使用" +
 	"者\x02立即更新\x02狀態：等待更新服務\x02錯誤： %[1]v。請稍後再試。\x02狀態：已完成！"
 
-	// Total table size 186413 bytes (182KiB); checksum: D33BAF00
+	// Total table size 186889 bytes (182KiB); checksum: AABBAA61

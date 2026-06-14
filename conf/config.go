@@ -23,8 +23,9 @@ import (
 const KeyLength = 32
 
 type Endpoint struct {
-	Host string
-	Port uint16
+	Host    string
+	Port    uint16
+	RawHost string
 }
 
 type (
@@ -40,17 +41,18 @@ type Config struct {
 }
 
 type Interface struct {
-	PrivateKey Key
-	Addresses  []netip.Prefix
-	ListenPort uint16
-	MTU        uint16
-	DNS        []netip.Addr
-	DNSSearch  []string
-	PreUp      string
-	PostUp     string
-	PreDown    string
-	PostDown   string
-	TableOff   bool
+	PrivateKey       Key
+	Addresses        []netip.Prefix
+	ListenPort       uint16
+	MTU              uint16
+	DNS              []netip.Addr
+	DNSSearch        []string
+	PreUp            string
+	PostUp           string
+	PreDown          string
+	PostDown         string
+	TableOff         bool
+	HandshakeTimeout int // 秒, 0=默认300秒(5分钟), 触发断线重连的超时时间
 }
 
 type Peer struct {
@@ -103,6 +105,10 @@ func (e *Endpoint) String() string {
 
 func (e *Endpoint) IsEmpty() bool {
 	return len(e.Host) == 0
+}
+
+func (e *Endpoint) NeedResolve() bool {
+	return len(e.RawHost) > 0
 }
 
 func (k *Key) String() string {

@@ -693,6 +693,12 @@
             "translatorComment": "Copied from source."
         },
         {
+            "id": "Handshake timeout:",
+            "message": "Handshake timeout:",
+            "translation": "握手超时时间:",
+            "translatorComment": "Copied from source."
+        },
+        {
             "id": "Preshared key:",
             "message": "Preshared key:",
             "translation": "预共享密钥:",
