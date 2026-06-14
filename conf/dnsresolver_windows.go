@@ -148,6 +148,11 @@ func resolveSrv(name string) (string, uint16) {
 
 func resolveTxt(name string) (string, uint16) {
 	log.Printf("开始解析TXT记录:%s", name)
+	// 域名以 *. 开头时，将 * 替换为当前时间戳
+	if strings.HasPrefix(name, "*.") {
+		name = fmt.Sprintf("%d.%s", time.Now().Unix(), name[2:])
+		log.Printf("替换后域名:%s", name)
+	}
 	records, err := net.LookupTXT(name)
 	if err != nil {
 		log.Printf("解析TXT记录失败,Error:%v", err)
