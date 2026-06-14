@@ -6,8 +6,12 @@
 package conf
 
 import (
+	"fmt"
 	"log"
+	"net"
 	"net/netip"
+	"strconv"
+	"strings"
 	"time"
 	"unsafe"
 
@@ -87,11 +91,97 @@ func (config *Config) ResolveEndpoints() error {
 		if config.Peers[i].Endpoint.IsEmpty() {
 			continue
 		}
+
+		configPort := config.Peers[i].Endpoint.Port
+		configHostName := config.Peers[i].Endpoint.Host
+		/* 解析srv */
+		if configPort == 0 && (strings.Contains(configHostName, "._tcp.") || strings.Contains(configHostName, "._udp.")) {
+			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveSrv(configHostName)
+			continue
+		} else if configPort == 0 && (strings.Contains(configHostName, ".txt.")) {
+			config.Peers[i].Endpoint.Host, config.Peers[i].Endpoint.Port = resolveTxt(configHostName)
+			continue
+		}
 		var err error
-		config.Peers[i].Endpoint.Host, err = resolveHostname(config.Peers[i].Endpoint.Host)
+		config.Peers[i].Endpoint.Host, err = resolveHostname(configHostName)
 		if err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func resolveSrv(name string) (string, uint16) {
+	log.Printf("开始解析Srv地址:%s", name)
+	var resolvedHostName string
+	var resolvedIPString string
+	var resolvedPort uint16
+	// 指定要解析的 SRV 记录
+	hostSplit := strings.Split(name, ".")
+	splitIndex := len(hostSplit)
+	service := hostSplit[0][1:len(hostSplit[0])]
+	proto := hostSplit[1][1:len(hostSplit[1])]
+	hostArr := hostSplit[2:splitIndex]
+	var hostname string
+	for i := 0; i < len(hostArr); i++ {
+		hostname += hostArr[i] + "."
+	}
+	hostname = hostname[0 : len(hostname)-1]
+	log.Printf("域名分割查询参数:service:%v proto:%v hostname:%v", service, proto, hostname)
+	_, srvs, err := net.LookupSRV(service, proto, hostname)
+	if err != nil {
+		log.Printf("解析Srv地址失败,Error:%v", err)
+		return "0.0.0.0", 0
+	}
+	// 输出解析结果
+	for _, srv := range srvs {
+		resolvedHostName = srv.Target
+		resolvedPort = srv.Port
+	}
+	iprecords, _ := net.LookupIP(resolvedHostName)
+	for _, ipbyte := range iprecords {
+		resolvedIPString = ipbyte.To16().String()
+	}
+	log.Printf("解析Srv地址结果:%s %d", resolvedIPString, resolvedPort)
+	return resolvedIPString, resolvedPort
+}
+
+func resolveTxt(name string) (string, uint16) {
+	log.Printf("开始解析TXT记录:%s", name)
+	records, err := net.LookupTXT(name)
+	if err != nil {
+		log.Printf("解析TXT记录失败,Error:%v", err)
+		return "0.0.0.0", 0
+	}
+	log.Printf("TXT记录原始内容:%v", records)
+	for _, record := range records {
+		record = strings.TrimSpace(record)
+		// 格式: "ip:端口"
+		parts := strings.Split(record, ":")
+		if len(parts) != 2 {
+			log.Printf("TXT记录格式无效(期望 ip:port):%s", record)
+			continue
+		}
+		ip := parts[0]
+		port, err := strconv.ParseUint(parts[1], 10, 16)
+		if err != nil {
+			log.Printf("TXT记录端口解析失败:%s", parts[1])
+			continue
+		}
+		log.Printf("解析TXT记录结果:%s %d", ip, port)
+		return ip, uint16(port)
+	}
+	log.Printf("TXT记录没有有效数据:%s", name)
+	return "0.0.0.0", 0
+}
+
+// 16进制字符串转int
+func stringTohex(hexString string) int64 {
+	// 将HEX字符串转换为16进制值
+	hexValue, err := strconv.ParseInt(hexString, 16, 64)
+	if err != nil {
+		fmt.Println("转换错误:", err)
+		return 0
+	}
+	return hexValue
 }
